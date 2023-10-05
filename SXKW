@@ -1,0 +1,54 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | SHEIN x Klarna Wonderland", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Main = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+Main:AddButton({
+    Name = "Tp To The Wheel",
+    Callback = function()
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-515, 40, -1081, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    end
+})
+
+Main:AddToggle({
+    Name = "Auto Get Quest",
+    Default = false,
+    Callback = function(Value)
+        _G.clt = Value
+        while _G.clt == true do
+			game:GetService("ReplicatedStorage"):WaitForChild("ProximityTriggeredFunc"):InvokeServer()
+              wait(0)
+        end
+    end
+})
+
+Main:AddToggle({
+    Name = "Auto Collect Treasure",
+    Default = false,
+    Callback = function(Value)
+        _G.AutoTP = Value
+        while task.wait(0) and _G.AutoTP do
+            for i,v in pairs(workspace.Temp.TreasureHuntItems:GetDescendants()) do
+                if v:FindFirstChild("TouchInterest") and game.Players.LocalPlayer.Character then
+                    game.Players.LocalPlayer.Character:PivotTo(v.CFrame)
+                end
+            end
+        end
+    end
+})
+
+Main:AddToggle({
+    Name = "Auto Spin The Wheel",
+    Default = false,
+    Callback = function(Value)
+        _G.clt2 = Value
+        while _G.clt2 == true do
+			game:GetService("ReplicatedStorage"):WaitForChild("SpinWheelFunc"):InvokeServer()
+			wait(0)
+        end
+    end
+})
